@@ -75,7 +75,16 @@ TEST_CASE("modern cpp") {
                 REQUIRE(ra[2] == 3);
                 ra = {6, 7, 8, 9};
                 REQUIRE(ra[1] == 7);
+
+                vector<double> distance{1.0, 2.0, 3.0, 4.0, 7.7};
+                auto total = accumulate(begin(distance), end(distance), 0.0);
+                cout << "total accumulation of distance is: " << total << endl;
             }
+        }
+    }SECTION("declare variable in if statement") {
+        vector names = {"hello", "world"};
+        if (const auto it = find(begin(names), end(names), "world"); it != end(names)) {
+            cout << "Hooray!" << endl;
         }
     }
 }

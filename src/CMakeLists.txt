@@ -1,0 +1,1 @@
+add_library(demo ./Person.h ./Resource.cpp ./Resource.h)
