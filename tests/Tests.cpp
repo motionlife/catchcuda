@@ -8,6 +8,7 @@
 #include <string>
 #include <memory>
 #include <map>
+#include <deque>
 
 using namespace std;
 
@@ -50,6 +51,10 @@ TEST_CASE("modern cpp") {
         if (const auto it = find(begin(str), end(str), "Jack"); it != end(str)) {
             *it = "***";
         }
+        vector names = {"hello", "world"};
+        if (const auto it = find(begin(names), end(names), "world"); it != end(names)) {
+            cout << "Hooray!" << endl;
+        }
     }SECTION("structured bindings") {
         map<string, string> mydict{{"hao",   "xiong"},
                                    {"Jenny", "Penny"},
@@ -81,10 +86,10 @@ TEST_CASE("modern cpp") {
                 cout << "total accumulation of distance is: " << total << endl;
             }
         }
-    }SECTION("declare variable in if statement") {
-        vector names = {"hello", "world"};
-        if (const auto it = find(begin(names), end(names), "world"); it != end(names)) {
-            cout << "Hooray!" << endl;
-        }
+    }SECTION("queue") {
+        deque myq{make_pair("love", 1)};
+//        deque<pair<string,int>> myq{{"love", 0}};
+        auto[s, d] = myq.front();
+        cout << s << d << endl;
     }
 }
