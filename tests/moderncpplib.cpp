@@ -35,7 +35,10 @@ TEST_CASE("linear container") {
 
     int i = 0, j = 0;
 
-    for (auto[x, y] : std::vector<std::pair<int, int>> {{i + 1, j}, {i - 1, j}, {i,j + 1}, {i,j - 1}}) {
+    for (auto[x, y] : std::vector<std::pair<int, int>>{{i + 1, j},
+                                                       {i - 1, j},
+                                                       {i,     j + 1},
+                                                       {i,     j - 1}}) {
         std::cout << "(" << x << " " << y << ")";
     }
 }
