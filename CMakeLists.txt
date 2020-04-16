@@ -1,9 +1,7 @@
-cmake_minimum_required(VERSION 3.10)
-project(catchcpp)
+cmake_minimum_required(VERSION 3.17)
+project(catchcpp CXX CUDA)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(cppfun src/main.cpp)
-add_executable(catch tests/catch.hpp tests/CatchMain.cpp tests/Tests.cpp tests/TestStd.cpp tests/TestMis.cpp tests/moderncpplib.cpp)
-
 add_subdirectory(src)
+add_subdirectory(tests)

@@ -1,43 +1,51 @@
 //
 // Created by haoxiong on 12/28/2019.
 //
+#include <algorithm>
 #include <iostream>
 #include <memory>
 #include <string>
 #include <vector>
-#include <algorithm>
+
+#include <Person.h>
+#include <vectorAdd.h>
 
 using namespace std;
 
 #if _DEBUG
-void foo(){}
+void foo() {}
 #endif
-#define MUL(a, b) a*b
+#define MUL(a, b) a *b
 
 int main() {
-    auto str = "Modern C++ is awesome!"s;
-    auto sp = std::unique_ptr<int>{nullptr};
-    auto sp2 = std::make_unique<int>(123);
-    cout << str << *sp << *sp2 << endl;
+  auto str = "Modern C++ is awesome!"s;
 
-    std::cout << "Hello, World!" << std::endl;
-//    system("cat /etc/os-release");
-    std::vector nums{1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
-    std::sort(std::begin(nums), std::end(nums));
-    for (auto const &n : nums) {
-        std::cout << MUL(n, 5) << std::endl;
-    }
-    static_assert(MUL(3, 2 + 2) == 8, "DANGER!");
+  //    auto sp = std::unique_ptr<int>{nullptr};
+  //    auto sp2 = std::make_unique<int>(123);
+  //    cout << str << *sp << *sp2 << endl;
 
-    int arr[17]; // C style array
-    std::cout << "The array length is: " << sizeof(arr) / 4 << std::endl;
+  std::cout << "Hello, World!" << std::endl;
+  //    system("cat /etc/os-release");
+  std::vector nums{1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+  std::sort(std::begin(nums), std::end(nums));
+  for (auto const &n : nums) {
+    std::cout << MUL(n, 5) << std::endl;
+  }
+  static_assert(MUL(3, 2 + 2) == 8, "DANGER!");
 
-    std::array my_arr{1, 2, 3, 4, 5, 6, 7};
-    for (auto const &n : my_arr) {
-        std::cout << n << std::endl;
-    }
-//    std::array<double, 200000000000> dba{};
+  int arr[17]; // C style array
+  std::cout << "The array length is: " << sizeof(arr) / 4 << std::endl;
 
-    return 0;
+  std::array my_arr{1, 2, 3, 4, 5, 6, 7};
+  for (auto const &n : my_arr) {
+    std::cout << n << std::endl;
+  }
+  //    std::array<double, 200000000000> dba{};
+
+  Person person("Hao", "Xiong", 31);
+  cout << person.GetName() << endl;
+
+  add_gpu(7);
+
+  return 0;
 }
-
