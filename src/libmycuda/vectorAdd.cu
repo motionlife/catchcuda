@@ -19,7 +19,7 @@
  * vector addition. It is the same as the sample illustrating Chapter 2
  * of the programming guide with some additions like error checking.
  */
-#include "vectorAdd.h"
+#include <vectorAdd.h>
 #include <cstdio>
 
 // For the CUDA runtime routines (prefixed with "cuda_")

@@ -3,12 +3,13 @@
 //
 #include <algorithm>
 #include <iostream>
-#include <memory>
+//#include <memory>
 #include <string>
 #include <vector>
 
 #include <Person.h>
 #include <vectorAdd.h>
+#include <utils.h>
 
 using namespace std;
 
@@ -17,7 +18,7 @@ void foo() {}
 #endif
 #define MUL(a, b) a *b
 
-int main() {
+int main(int argc, char **argv) {
   auto str = "Modern C++ is awesome!"s;
 
   //    auto sp = std::unique_ptr<int>{nullptr};
@@ -45,7 +46,8 @@ int main() {
   Person person("Hao", "Xiong", 31);
   cout << person.GetName() << endl;
 
-  add_gpu(7);
-
+  add_gpu(1);
+  bandwidthTest(argc, argv);
+  deviceQuery(argc, argv);
   return 0;
 }
