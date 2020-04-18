@@ -20,8 +20,8 @@
 #include <memory>
 #include <string>
 
-int *pArgc = NULL;
-char **pArgv = NULL;
+int *pArgc = nullptr;
+char **pArgv = nullptr;
 
 #if CUDART_VERSION < 5000
 
@@ -48,7 +48,7 @@ inline void getCudaAttribute(T *attribute, CUdevice_attribute device_attribute,
 
 ////////////////////////////////////////////////////////////////////////////////
 // Program main
-#include <utils.h>
+#include "utils.h"
 ////////////////////////////////////////////////////////////////////////////////
 int deviceQuery(int argc, char **argv) {
   pArgc = &argc;
@@ -96,10 +96,10 @@ int deviceQuery(int argc, char **argv) {
     char msg[256];
 #if defined(WIN32) || defined(_WIN32) || defined(WIN64) || defined(_WIN64)
     sprintf_s(msg, sizeof(msg),
-             "  Total amount of global memory:                 %.0f MBytes "
-             "(%llu bytes)\n",
-             static_cast<float>(deviceProp.totalGlobalMem / 1048576.0f),
-             (unsigned long long)deviceProp.totalGlobalMem);
+              "  Total amount of global memory:                 %.0f MBytes "
+              "(%llu bytes)\n",
+              static_cast<float>(deviceProp.totalGlobalMem / 1048576.0f),
+              (unsigned long long)deviceProp.totalGlobalMem);
 #else
     snprintf(msg, sizeof(msg),
              "  Total amount of global memory:                 %.0f MBytes "
@@ -113,11 +113,10 @@ int deviceQuery(int argc, char **argv) {
            deviceProp.multiProcessorCount,
            _ConvertSMVer2Cores(deviceProp.major, deviceProp.minor),
            _ConvertSMVer2Cores(deviceProp.major, deviceProp.minor) *
-           deviceProp.multiProcessorCount);
-    printf(
-        "  GPU Max Clock rate:                            %.0f MHz (%0.2f "
-        "GHz)\n",
-        deviceProp.clockRate * 1e-3f, deviceProp.clockRate * 1e-6f);
+               deviceProp.multiProcessorCount);
+    printf("  GPU Max Clock rate:                            %.0f MHz (%0.2f "
+           "GHz)\n",
+           deviceProp.clockRate * 1e-3f, deviceProp.clockRate * 1e-6f);
 
 #if CUDART_VERSION >= 5000
     // This is supported in CUDA 5.0 (runtime API device properties)
@@ -154,20 +153,18 @@ int deviceQuery(int argc, char **argv) {
 
 #endif
 
-    printf(
-        "  Maximum Texture Dimension Size (x,y,z)         1D=(%d), 2D=(%d, "
-        "%d), 3D=(%d, %d, %d)\n",
-        deviceProp.maxTexture1D, deviceProp.maxTexture2D[0],
-        deviceProp.maxTexture2D[1], deviceProp.maxTexture3D[0],
-        deviceProp.maxTexture3D[1], deviceProp.maxTexture3D[2]);
+    printf("  Maximum Texture Dimension Size (x,y,z)         1D=(%d), 2D=(%d, "
+           "%d), 3D=(%d, %d, %d)\n",
+           deviceProp.maxTexture1D, deviceProp.maxTexture2D[0],
+           deviceProp.maxTexture2D[1], deviceProp.maxTexture3D[0],
+           deviceProp.maxTexture3D[1], deviceProp.maxTexture3D[2]);
     printf(
         "  Maximum Layered 1D Texture Size, (num) layers  1D=(%d), %d layers\n",
         deviceProp.maxTexture1DLayered[0], deviceProp.maxTexture1DLayered[1]);
-    printf(
-        "  Maximum Layered 2D Texture Size, (num) layers  2D=(%d, %d), %d "
-        "layers\n",
-        deviceProp.maxTexture2DLayered[0], deviceProp.maxTexture2DLayered[1],
-        deviceProp.maxTexture2DLayered[2]);
+    printf("  Maximum Layered 2D Texture Size, (num) layers  2D=(%d, %d), %d "
+           "layers\n",
+           deviceProp.maxTexture2DLayered[0], deviceProp.maxTexture2DLayered[1],
+           deviceProp.maxTexture2DLayered[2]);
 
     printf("  Total amount of constant memory:               %zu bytes\n",
            deviceProp.totalConstMem);
@@ -191,10 +188,10 @@ int deviceQuery(int argc, char **argv) {
            deviceProp.memPitch);
     printf("  Texture alignment:                             %zu bytes\n",
            deviceProp.textureAlignment);
-    printf(
-        "  Concurrent copy and kernel execution:          %s with %d copy "
-        "engine(s)\n",
-        (deviceProp.deviceOverlap ? "Yes" : "No"), deviceProp.asyncEngineCount);
+    printf("  Concurrent copy and kernel execution:          %s with %d copy "
+           "engine(s)\n",
+           (deviceProp.deviceOverlap ? "Yes" : "No"),
+           deviceProp.asyncEngineCount);
     printf("  Run time limit on kernels:                     %s\n",
            deviceProp.kernelExecTimeoutEnabled ? "Yes" : "No");
     printf("  Integrated GPU sharing Host Memory:            %s\n",
@@ -231,7 +228,7 @@ int deviceQuery(int argc, char **argv) {
         "Exclusive Process (many threads in one process is able to use "
         "::cudaSetDevice() with this device)",
         "Unknown",
-        NULL};
+        nullptr};
     printf("  Compute Mode:\n");
     printf("     < %s >\n", sComputeMode[deviceProp.computeMode]);
   }
@@ -239,7 +236,7 @@ int deviceQuery(int argc, char **argv) {
   // If there are 2 or more GPUs, query to determine whether RDMA is supported
   if (deviceCount >= 2) {
     cudaDeviceProp prop[64];
-    int gpuid[64];  // we want to find the first two GPUs that can support P2P
+    int gpuid[64]; // we want to find the first two GPUs that can support P2P
     int gpu_p2p_count = 0;
 
     for (int i = 0; i < deviceCount; i++) {
@@ -248,11 +245,11 @@ int deviceQuery(int argc, char **argv) {
       // Only boards based on Fermi or later can support P2P
       if ((prop[i].major >= 2)
 #if defined(WIN32) || defined(_WIN32) || defined(WIN64) || defined(_WIN64)
-        // on Windows (64-bit), the Tesla Compute Cluster driver for windows
+          // on Windows (64-bit), the Tesla Compute Cluster driver for windows
           // must be enabled to support this
           && prop[i].tccDriver
 #endif
-          ) {
+      ) {
         // This is an array of P2P capable GPUs
         gpuid[gpu_p2p_count++] = i;
       }
@@ -287,7 +284,8 @@ int deviceQuery(int argc, char **argv) {
   // driver version
   sProfileString += ", CUDA Driver Version = ";
 #if defined(WIN32) || defined(_WIN32) || defined(WIN64) || defined(_WIN64)
-  sprintf_s(cTemp, 10, "%d.%d", driverVersion/1000, (driverVersion%100)/10);
+  sprintf_s(cTemp, 10, "%d.%d", driverVersion / 1000,
+            (driverVersion % 100) / 10);
 #else
   snprintf(cTemp, sizeof(cTemp), "%d.%d", driverVersion / 1000,
            (driverVersion % 100) / 10);
@@ -297,7 +295,8 @@ int deviceQuery(int argc, char **argv) {
   // Runtime version
   sProfileString += ", CUDA Runtime Version = ";
 #if defined(WIN32) || defined(_WIN32) || defined(WIN64) || defined(_WIN64)
-  sprintf_s(cTemp, 10, "%d.%d", runtimeVersion/1000, (runtimeVersion%100)/10);
+  sprintf_s(cTemp, 10, "%d.%d", runtimeVersion / 1000,
+            (runtimeVersion % 100) / 10);
 #else
   snprintf(cTemp, sizeof(cTemp), "%d.%d", runtimeVersion / 1000,
            (runtimeVersion % 100) / 10);
