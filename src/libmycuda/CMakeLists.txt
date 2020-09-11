@@ -1,6 +1,6 @@
 set(CMAKE_CUDA_STANDARD 14)
 if (UNIX OR LINUX)
-    set(CMAKE_CUDA_COMPILER /usr/local/cuda-10.2/bin/nvcc)
+    set(CMAKE_CUDA_COMPILER /usr/local/cuda/bin/nvcc)
 endif (UNIX OR LINUX)
 
 #file(GLOB cuda_common_src "common/inc/*.h" "common/inc/GL/*.h" "common/src/*.cpp")
