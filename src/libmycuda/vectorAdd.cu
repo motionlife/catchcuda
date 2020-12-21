@@ -33,27 +33,24 @@
  * number of elements numElements.
  */
 __global__ void vectorAdd(const float *A, const float *B, float *C,
-                          int numElements, int round) {
+                          int numElements) {
   int i = blockDim.x * blockIdx.x + threadIdx.x;
-  for (int j = 0; j < round; j++) {
-    if (i < numElements) {
-      C[i] = A[i] + B[i] + j * i;
-    }
+  if (i < numElements) {
+    C[i] = A[i] + B[i];
   }
 }
 
 /**
  * Host main routine
  */
-int add_gpu(int round) {
+int add_gpu(int multiple) {
   // Error code to check return values for CUDA calls
   cudaError_t err = cudaSuccess;
 
   // Print the vector length to be used, and compute its size
-  int numElements = 50000000;
+  int numElements = 50000 * multiple;
   size_t size = numElements * sizeof(float);
-  printf("[Vector addition of %d elements] x %d = %d\n", numElements, round,
-         numElements * round);
+  printf("[Vector addition of %d elements]\n", numElements);
 
   // Allocate the host input vector A
   auto *h_A = (float *)malloc(size);
@@ -132,8 +129,7 @@ int add_gpu(int round) {
   int blocksPerGrid = (numElements + threadsPerBlock - 1) / threadsPerBlock;
   printf("CUDA kernel launch with %d blocks of %d threads\n", blocksPerGrid,
          threadsPerBlock);
-  vectorAdd<<<blocksPerGrid, threadsPerBlock>>>(d_A, d_B, d_C, numElements,
-                                                round);
+  vectorAdd<<<blocksPerGrid, threadsPerBlock>>>(d_A, d_B, d_C, numElements);
   err = cudaGetLastError();
 
   if (err != cudaSuccess) {

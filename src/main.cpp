@@ -43,10 +43,11 @@ int main(int argc, char **argv) {
   }
   //    std::array<double, 200000000000> dba{};
 
-  Person person("Hao", "Xiong", 31);
+  Person person("Fighting", "For Freedom", 31);
   cout << person.GetName() << endl;
+  cout << "person id is: " << person.GetId() << endl;
 
-  add_gpu(10);
+  add_gpu(22);
   bandwidthTest(argc, argv);
   deviceQuery(argc, argv);
   return 0;
