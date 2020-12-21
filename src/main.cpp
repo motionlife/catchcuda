@@ -46,7 +46,7 @@ int main(int argc, char **argv) {
   Person person("Hao", "Xiong", 31);
   cout << person.GetName() << endl;
 
-  add_gpu(1);
+  add_gpu(10);
   bandwidthTest(argc, argv);
   deviceQuery(argc, argv);
   return 0;
