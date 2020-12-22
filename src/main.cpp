@@ -7,9 +7,11 @@
 #include <string>
 #include <vector>
 
+#include <practice.h>
 #include <Person.h>
 #include <vectorAdd.h>
 #include <utils.h>
+#include <thrust.h>
 
 using namespace std;
 
@@ -47,8 +49,11 @@ int main(int argc, char **argv) {
   cout << person.GetName() << endl;
   cout << "person id is: " << person.GetId() << endl;
 
-  add_gpu(22);
-  bandwidthTest(argc, argv);
-  deviceQuery(argc, argv);
+//  add_gpu(22);
+//  bandwidthTest(argc, argv);
+//  deviceQuery(argc, argv);
+  map_fun(777);
+//  gather_fun(777);
+  test_thrust();
   return 0;
 }

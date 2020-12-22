@@ -79,7 +79,7 @@ int deviceQuery(int argc, char **argv) {
 
   for (dev = 0; dev < deviceCount; ++dev) {
     cudaSetDevice(dev);
-    cudaDeviceProp deviceProp;
+    cudaDeviceProp deviceProp{};
     cudaGetDeviceProperties(&deviceProp, dev);
 
     printf("\nDevice %d: \"%s\"\n", dev, deviceProp.name);
