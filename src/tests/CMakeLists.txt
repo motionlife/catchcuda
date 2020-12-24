@@ -3,5 +3,4 @@ add_executable(catch
         CatchMain.cpp
         Tests.cpp
         TestStd.cpp
-        TestMis.cpp
-        moderncpplib.cpp)
+        TestMis.cpp)

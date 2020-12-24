@@ -2,7 +2,7 @@
 // Created by Hao Xiong on 4/7/2020.
 //
 
-#include "catch.hpp"
+#include "../tests/catch.hpp"
 #include <iostream>
 #include <map>
 #include <vector>
